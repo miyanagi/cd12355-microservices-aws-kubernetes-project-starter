@@ -30,8 +30,7 @@ spec:
     spec:
       containers:
       - name: coworking
-        image: 026090511506.dkr.ecr.us-east-1.amazonaws.com/coworking
-        imagePullPolicy: Always
+        image: 026090511506.dkr.ecr.us-east-1.amazonaws.com/coworking:3
         livenessProbe:
           httpGet:
             path: /health_check
