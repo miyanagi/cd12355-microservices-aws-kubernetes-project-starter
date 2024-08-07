@@ -3,8 +3,7 @@ kind: Service
 metadata:
   name: coworking
 spec:
-  # A local environment doesn't generally have a LoadBalancer, so we use NodePort instead.
-  type: NodePort
+  type: LoadBalancer
   selector:
     service: coworking
   ports:
@@ -31,9 +30,8 @@ spec:
     spec:
       containers:
       - name: coworking
-        # Locally hosted docker image
         image: 026090511506.dkr.ecr.us-east-1.amazonaws.com/coworking
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /health_check
@@ -50,6 +48,26 @@ spec:
         - configMapRef:
             name: miya-postgresql
         env:
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: miya-postgresql
+              key: DB_USERNAME
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: miya-postgresql
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: miya-postgresql
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: miya-postgresql
+              key: DB_PORT
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
