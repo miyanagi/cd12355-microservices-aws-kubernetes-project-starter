@@ -4,14 +4,6 @@ metadata:
   name: miya-postgresql
 data:
   DB_HOST: postgresql-service
-  DB_PORT: 5433
+  DB_PORT: "5433"
   DB_USERNAME: myuser
   DB_NAME: mydatabase
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: postgrespass
-type: Opaque
-data:
-  DB_PASSWORD: mypassword
